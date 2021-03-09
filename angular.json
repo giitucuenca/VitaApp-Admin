@@ -28,9 +28,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/sweetalert2/src/sweetalert2.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/js/Notify.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -92,9 +98,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/sweetalert2/src/sweetalert2.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/js/Notify.js"
+            ]
           }
         },
         "lint": {
@@ -123,6 +135,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "vitaapp-ucuenca-admin"
+    }
+  },
+  "defaultProject": "vitaapp-ucuenca-admin",
+  "cli": {
+    "analytics": "a85880bd-8e3b-4b0a-ae01-4d63e0e66a31"
+  }
 }
