@@ -1,0 +1,38 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="header__logos">
+      <div class="header__logo">
+        <img src="assets/Images/logo/logo_2.png" alt="Logo de vitaapp">
+      </div>
+      <div class="header__logo">
+        <img src="assets/Images/logo/u_c.png" alt="Logo de la Universidad de Cuenca">
+      </div>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse normal-text" id="navbarNav">
+      <ul #navbarAdmin class="navbar-nav text-secondary ">
+        <li class="nav-item "  routerLink="/main" [routerLinkActive] = "'active'">
+          <a class="nav-link h5"><span><i class="fas fa-user-friends"></i> Usuarios</span></a>
+        </li>
+        <li class="nav-item"  routerLink="/board" [routerLinkActive] = "'active'">
+          <a class="nav-link h5"><span><i class="fas fa-border-all"></i> Tableros</span></a>
+        </li>
+        <li class="nav-item border-red"   routerLink="/login">
+          <a class="nav-link h5"><span><i class="fas fa-sign-out-alt"></i> Salir</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<content class="container">
+  <router-outlet></router-outlet>
+</content>
+<footer class="d-flex align-items-center justify-content-center text-white">
+  VitaApp - {{ date | date: "yyyy" }}
+</footer>
+
+

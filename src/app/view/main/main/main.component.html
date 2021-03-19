@@ -1,0 +1,48 @@
+<section class="counter-container">
+  <hr>
+  <h3 class="text-center">Usuarios Registrados</h3>
+  <hr>
+  <div class="row">
+    <div class="four col-md-6">
+      <div class="counter-box bg-primary text-white"> <i class="fa fa-group"></i> <span class="counter">2147</span>
+        <p>Adultos Mayores Registrados</p>
+      </div>
+    </div>
+    <div class="four col-md-6">
+      <div class="counter-box bg-secondary text-white"> <i class="fa fa-group"></i> <span class="counter">3275</span>
+        <p>Cuidadores Registrados</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="row">
+  <section class="education-bar col-12 col-lg-6">
+    <hr>
+    <h3 class="text-center">Nivel Académico</h3>
+    <hr>
+    <p-chart type="bar" [data]="dataEducation" [options]="optionsEducation"></p-chart>
+  </section>
+
+  <section class="education-bar col-12 col-lg-6">
+    <hr>
+    <h3 class="text-center">Nivel Académico</h3>
+    <hr>
+    <p-chart type="bar" [data]="dataLaterality" [options]="optionsLaterality"></p-chart>
+  </section>
+
+  <section class="disability-bar col-12 col-lg-6">
+    <hr>
+    <h3 class="text-center">Nivel Académico</h3>
+    <hr>
+    <p-chart type="bar" [data]="dataDisability" [options]="optionsDisability"></p-chart>
+  </section>
+
+  <section class="disability-bar col-12 col-lg-6">
+    <hr>
+    <h3 class="text-center">Género</h3>
+    <hr>
+    <p-chart type="bar" [data]="dataGender" [options]="optionsGender"></p-chart>
+  </section>
+</div>
+

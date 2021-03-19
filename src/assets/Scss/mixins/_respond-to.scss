@@ -1,0 +1,41 @@
+$grid-breakpoints: (
+  xs: 0,
+  xsm: 375px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+
+@mixin respond-to($width){
+  @media only screen and (min-width: $width){
+    @content;
+  }
+}
+
+@mixin respond-xsm{
+  @media only screen and (min-width: map-get($grid-breakpoints , xsm)){
+    @content;
+  }
+}
+
+@mixin respond-sm{
+  @media only screen and (min-width: map-get($grid-breakpoints , sm)){
+    @content;
+  }
+}
+@mixin respond-md{
+  @media only screen and (min-width: map-get($grid-breakpoints , md)){
+    @content;
+  }
+}
+@mixin respond-lg{
+  @media only screen and (min-width: map-get($grid-breakpoints , lg)){
+    @content;
+  }
+}
+@mixin respond-xl{
+  @media only screen and (min-width: map-get($grid-breakpoints , xl)){
+    @content;
+  }
+}

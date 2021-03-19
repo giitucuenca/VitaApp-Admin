@@ -1,0 +1,39 @@
+@import "../../../../assets/Scss/variables";
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+}
+
+content {
+  flex: 1 1 auto;
+  .login__form {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid $primary;
+    box-shadow: 0 4px 10px 0 rgba($primary,.2);
+    border-radius: 25px;
+    overflow: hidden;
+    .form__header {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      color: white;
+      h2 {
+        margin: 0%;
+        line-height: 1;
+      }
+      background: $bg-linear;
+    }
+    form {
+      max-width: 450px;
+      margin: auto;
+      margin-bottom: 2rem;
+    }
+  }
+}
+

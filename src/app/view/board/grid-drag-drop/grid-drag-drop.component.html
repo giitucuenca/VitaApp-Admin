@@ -1,0 +1,11 @@
+<button class="btn btn-primary" (click)="add()"><i class="fas fa-plus"></i></button><br/>
+<!-- <button (click)="shuffle()">Shuffle</button> -->
+<ul class="example-list"><li *ngFor="let item of items">{{ item }}</li></ul>
+
+<div class="example-container" cdkDropListGroup>
+  <div cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
+  <div cdkDropList *ngFor="let item of items"
+       [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)">
+    <div cdkDrag class="example-box" (cdkDragMoved)="dragMoved($event);">{{item}}</div>
+  </div>
+</div>

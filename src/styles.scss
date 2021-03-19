@@ -40,7 +40,7 @@ $vitaapp-ucuenca-admin-theme: mat-light-theme(
 @import "assets/Scss/header";
 @import "assets/Scss/footer";
 @import "assets/Scss/couters";
-
+@import "assets/Scss/category";
 html,
 body {
   height: 100%;
@@ -81,3 +81,10 @@ $custom-typography: mat-typography-config(
     margin: 0px;
   }
 }
+
+.breadcrumb {
+  .active {
+    color: $primary;
+  }
+}
+
