@@ -12,7 +12,6 @@ import { finalize } from 'rxjs/operators';
 export class FileUploadService {
   private basePath = '/pictograms/images';
   constructor(
-    private db: AngularFireDatabase,
     private storage: AngularFireStorage
   ) {}
 
@@ -35,8 +34,6 @@ export class FileUploadService {
             fileUpload.url = downloadURL;
             // * Se guarda el nombre ademas en el modelo que guarda la informacion del archivo.
             fileUpload.name = fileUpload.file.name;
-            // * Se agrega el archivo en caso de que se envien varios a guardar cada fileUpload se va guardando en una lista.
-            this.saveFileData(fileUpload);
           });
         })
       )
@@ -44,28 +41,6 @@ export class FileUploadService {
 
     // * Sirve para guardar el progreso 1 - 100 de subida de un archivo.
     return uploadTask.percentageChanges();
-  }
-  // * Esta funcion guarda los archivos subidos en una lista en caso de que se guarden varios a la vez.
-  private saveFileData(fileUpload: FileUpload): void {
-    this.db.list(this.basePath).push(fileUpload);
-  }
-
-  // * Con esta funcion se obtinente los archivos subidos.
-  getFiles(numberItems: number): AngularFireList<FileUpload> {
-    return this.db.list(this.basePath, (ref) => ref.limitToLast(numberItems));
-  }
-  // * Sirve para eliminar un archivo subido a firebase
-  deleteFile(fileUpload: FileUpload): void {
-    this.deleteFileDatabase(fileUpload.key)
-      .then(() => {
-        this.deleteFileStorage(fileUpload.name);
-      })
-      .catch((error) => console.log(error));
-  }
-
-  // * Sirve para eliminar un archivo subido a DataBase de firebase
-  private deleteFileDatabase(key: string): Promise<void> {
-    return this.db.list(this.basePath).remove(key);
   }
 
   // * Sirve para eliminar un archivo subido a Storage de firebase

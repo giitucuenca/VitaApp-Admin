@@ -34,8 +34,6 @@ import { GridDragDropComponent } from './view/board/grid-drag-drop/grid-drag-dro
 
 import { environment } from '../environments/environment';
 import { UploadFormComponent } from './view/uploadFile/upload-form/upload-form.component';
-import { UploadDetailsComponent } from './view/uploadFile/upload-details/upload-details.component';
-import { UploadListComponent } from './view/uploadFile/upload-list/upload-list.component';
 
 
 
@@ -48,9 +46,7 @@ import { UploadListComponent } from './view/uploadFile/upload-list/upload-list.c
     MainComponent,
     BoardComponent,
     GridDragDropComponent,
-    UploadFormComponent,
-    UploadDetailsComponent,
-    UploadListComponent
+    UploadFormComponent
   ],
   imports: [
     BrowserModule,
