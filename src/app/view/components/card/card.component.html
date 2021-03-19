@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-content" [ngStyle]="{'background-color': '#'+category.colorM.colorCode}">
+    <div class="card-body pb-0">
+      <div class="media d-flex">
+        <div class="align-self-center" style="max-width: 75px;">
+          <img class="img-fluid" [src]="category.imageURL" alt="">
+        </div>
+        <div class="media-body text-right">
+          <h3>{{category.name}}</h3>
+          <span>{{category.description}}</span>
+        </div>
+      </div>
+      <div class="gestion">
+        <div>
+          <i class="fas fa-trash"></i> Eliminar
+        </div>
+        <div>
+          <i class="fas fa-edit"></i> Modificar
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

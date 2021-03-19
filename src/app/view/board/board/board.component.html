@@ -1,37 +1,16 @@
-<p-tabMenu [model]="items"></p-tabMenu>
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li [ngClass]="i === position.length - 1 ? 'breadcrumb-item h5 active' : 'breadcrumb-item h5'" *ngFor="let item of position; let i = index" (click)="goToPage(i)">{{item.label}}</li>
-  </ol>
-</nav>
 
 <section>
-    <div>
-      <h3>bezkoder.com</h3>
-      <h4>Subir Archivos</h4>
-    </div>
-
-    <div class="my-3">
-      <app-upload-form></app-upload-form>
-    </div>
+  <h2 class="title">{{pageCurrent}}</h2>
 </section>
 
 <section #pages class="categories animate__bounceIn">
+  <div class="form__category mt-4">
+    <app-form-category (reloadCateries)="getAllCategories()"></app-form-category>
+  </div>
   <div class="row">
-    <div class='col-12 col-lg-6 mt-4' *ngFor="let item of [1,1,1,1]" (click)="openPage(1, true)">
-      <div class="category">
-        <div class='category__image'>
-          <img src="assets/Images/Demo/comida.png" alt="Comida">
-        </div>
-        <div class='category__info'>
-          <h3>Alimento</h3>
-          <p>
-            Contiene pictogramas de alimentos, categorizados por: Lacteos, Carnes, Frutas, etc.
-          </p>
-        </div>
-      </div>
-
+    <div class='col-12 col-md-6 col-lg-4 mt-4' *ngFor="let category of categories" (click)="openPage(1)">
+      <app-card [category]="category"></app-card>
     </div>
   </div>
 </section>
@@ -39,7 +18,7 @@
 <section #pages class="categories subcategory animate__bounceOut">
   <div class="row">
     <div class='col-12 col-lg-6 mt-4' *ngFor="let item of [1,1,1,1,1,1,1]; let i=index" >
-      <div class="category" (click)="openPage(2, true)">
+      <div class="category" (click)="openPage(2)">
         <div class='category__image'>
           <img src="assets/Images/Demo/lacteos.png" alt="Comida" *ngIf="i%2 === 0">
           <img src="assets/Images/Demo/verduras.png" alt="Comida" *ngIf="i%2 === 1">

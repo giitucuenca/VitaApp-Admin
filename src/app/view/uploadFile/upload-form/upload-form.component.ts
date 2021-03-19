@@ -18,6 +18,14 @@ export class UploadFormComponent implements OnInit {
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
+    this.upload();
+  }
+
+
+  inicializeUpload(): void {
+    this.selectedFiles = undefined;
+    this.currentFileUpload = undefined;
+    this.percentage = 0;
   }
 
   upload(): void {
@@ -37,5 +45,9 @@ export class UploadFormComponent implements OnInit {
         );
       }
     }
+  }
+
+  get getUrlFile(): string {
+    return this.currentFileUpload && this.currentFileUpload.url ? this.currentFileUpload.url : undefined;
   }
 }

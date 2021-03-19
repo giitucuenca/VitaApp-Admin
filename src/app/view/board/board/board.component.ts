@@ -1,42 +1,38 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Category } from './../../../controller/interfaces/category.interface';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { VitaappService } from 'src/app/services/vitaapp/vitaapp.service';
+import { CategoryGet } from 'src/app/controller/interfaces/category_get.interface';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  items: MenuItem[];
-  position: MenuItem[];
-  subMenu = ['Categorias', 'Subcategoria', 'Pictogramas']
+  categories: CategoryGet[] = [];
+  subMenu = ['Categorias', 'Subcategoria', 'Pictogramas'];
+  pageCurrent: string;
   @ViewChildren('pages') pages: QueryList<ElementRef<HTMLElement>>;
 
-  constructor(
-  ) { }
+  constructor(private vitaapp: VitaappService) {}
 
   ngOnInit(): void {
-    this.items = [
-      { label: 'Categorias', icon: 'pi pi-fw pi-list' },
-      { label: 'Agregar Categoria', icon: 'pi pi-fw pi-plus' },
-      { label: 'Editar Tablero', icon: 'pi pi-fw pi-pencil' }
-    ];
-
-    this.position = [
-      { label: this.subMenu[0] }
-    ]
-
+    this.pageCurrent = this.subMenu[0];
+    this.getAllCategories();
   }
 
-
-  openPage(index: number, addLabel: boolean): void {
+  openPage(index: number): void {
     this.pages.forEach((page, i) => {
       if (index === i) {
-        if (addLabel) {
-          this.position.push({
-            label: this.subMenu[i]
-          });
-        }
+        this.pageCurrent = this.subMenu[i];
 
         if (page.nativeElement.classList.contains('animate__bounceOut')) {
           page.nativeElement.classList.remove('animate__bounceOut');
@@ -48,14 +44,18 @@ export class BoardComponent implements OnInit {
           page.nativeElement.classList.add('animate__bounceOut');
         }
       }
-    })
+    });
   }
 
-  goToPage(index: number) {
-    for (let i = index + 1; i < this.position.length; i++) {
-      this.position.splice(index + 1, 1);
-    }
-    this.openPage(index, false);
+  getAllCategories(): void {
+    this.vitaapp.getAllCategories().subscribe(
+      (resp) => {
+        this.categories = resp;
+        console.log(resp);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
-
 }

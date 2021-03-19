@@ -1,19 +1,14 @@
 <section>
-  <label>
-    <input
-      type="file"
-      class="text-nowrap text-truncate"
-      (change)="selectFile($event)"
-    />
-  </label>
 
-  <button
-    class="btn btn-success btn-sm"
-    [disabled]="!selectedFiles"
-    (click)="upload()"
-  >
-    Upload
-  </button>
+  <div class="form-group">
+    <label>
+      <input
+        type="file"
+        class="text-nowrap text-truncate"
+        (change)="selectFile($event)"
+      />
+    </label>
+  </div>
 
   <div *ngIf="currentFileUpload" class="progress mt-2">
     <div
@@ -26,5 +21,9 @@
     >
       {{ percentage }}%
     </div>
+  </div>
+
+  <div class="pic__url text-success text-center"  *ngIf="currentFileUpload && currentFileUpload.url">
+    Imagen subida correctamente.
   </div>
 </section>
