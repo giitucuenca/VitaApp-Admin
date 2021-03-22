@@ -1,38 +1,33 @@
 
 
 <section>
+  <nav aria-label="breadcrumb ">
+    <ol class="breadcrumb breadcrumb-bg">
+      <li [ngClass]="i === subMenu.length - 1 ? 'breadcrumb-item h5 m-0 active' : 'breadcrumb-item h5 m-0'" *ngFor="let item of subMenuNavigation; let i = index" (click)="goToPage(i)">{{item}}</li>
+    </ol>
+  </nav>
   <h2 class="title">{{pageCurrent}}</h2>
 </section>
+
 
 <section #pages class="categories animate__bounceIn">
   <div class="form__category mt-4">
     <app-form-category (reloadCateries)="getAllCategories()"></app-form-category>
   </div>
   <div class="row">
-    <div class='col-12 col-md-6 col-lg-4 mt-4' *ngFor="let category of categories" (click)="openPage(1)">
+    <div class='col-12 col-md-6 col-lg-4 mt-4' *ngFor="let category of categories" (click)="openPage(1, category.categoryId)">
       <app-card [category]="category"></app-card>
     </div>
   </div>
 </section>
 
 <section #pages class="categories subcategory animate__bounceOut">
+  <div class="form__category mt-4">
+    <app-form-subcategory #appSubcategory (reloadSubcategories)="getAllSubcategories(subcategoryCurrent)"></app-form-subcategory>
+  </div>
   <div class="row">
-    <div class='col-12 col-lg-6 mt-4' *ngFor="let item of [1,1,1,1,1,1,1]; let i=index" >
-      <div class="category" (click)="openPage(2)">
-        <div class='category__image'>
-          <img src="assets/Images/Demo/lacteos.png" alt="Comida" *ngIf="i%2 === 0">
-          <img src="assets/Images/Demo/verduras.png" alt="Comida" *ngIf="i%2 === 1">
-        </div>
-        <div class='category__info'>
-          <h3>Alimento</h3>
-          <p *ngIf="i%2 === 0">
-            Contiene pictogramas de Lacteos.
-          </p>
-          <p *ngIf="i%2 === 1">
-            Contiene pictogramas de Verduras.
-          </p>
-        </div>
-      </div>
+    <div class='col-12 col-lg-6 mt-4' *ngFor="let subcategory of subcategories; let i=index" (click)="openPage(2, subcategory.subcategoryId)">
+      <app-card [subcategory]="subcategory"></app-card>
     </div>
   </div>
 </section>

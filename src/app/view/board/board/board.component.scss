@@ -1,5 +1,5 @@
-@import '../../../../assets/Scss/mixins/gap';
-
+@import "../../../../assets/Scss/mixins/gap";
+@import "../../../../assets/Scss/variables";
 .animate__bounceOut {
   display: none;
 }
@@ -12,6 +12,12 @@
       font-size: 1.2rem;
       border-radius: 0rem;
     }
+  }
+}
 
+.breadcrumb-bg {
+  background-color: lighten($color: $primary, $amount: 50%);
+  li {
+    cursor: pointer;
   }
 }

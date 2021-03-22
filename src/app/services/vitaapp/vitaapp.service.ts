@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Category } from 'src/app/controller/interfaces/category.interface';
+import { Subcategory } from 'src/app/controller/interfaces/subcategory.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -83,6 +84,16 @@ export class VitaappService {
 
   getAllCategories(): Observable<any> {
     const PATH = this.concatURL(`/category/all`);
+    return this.makeGetRequest(PATH);
+  }
+
+  saveSubcategory(subcategory: Subcategory): Observable<any> {
+    const PATH = this.concatURL(`/subcategory/admin/add`);
+    return this.makePostRequest(PATH, subcategory);
+  }
+
+  getAllSubcategoriesByCategoryId(idCategory: number): Observable<any> {
+    const PATH = this.concatURL(`/subcategory/category/${idCategory}`);
     return this.makeGetRequest(PATH);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Category } from 'src/app/controller/interfaces/category.interface';
+import { Subcategory } from 'src/app/controller/interfaces/subcategory.interface';
 import { Color } from 'src/app/controller/interfaces/color.interface';
 import { VitaappService } from 'src/app/services/vitaapp/vitaapp.service';
 import { UploadFormComponent } from '../../uploadFile/upload-form/upload-form.component';
@@ -13,11 +13,12 @@ declare var Notify: any;
 })
 export class FormSubcategoryComponent implements OnInit {
   @ViewChild('uploadFileComp') uploadFileComp: UploadFormComponent;
-  @Output() reloadCateries = new EventEmitter<boolean>();
+  @Output() reloadSubcategories = new EventEmitter<boolean>();
   invalidUrl = false;
+  categoryId = -1;
 
   colors: Color[] = [];
-  formCategory: FormGroup;
+  formSubcategory: FormGroup;
   constructor(
     private vitaapp: VitaappService,
     private formBuilder: FormBuilder
@@ -34,21 +35,22 @@ export class FormSubcategoryComponent implements OnInit {
     );
   }
 
-  saveCategory(): void {
-    if (this.formCategory.valid) {
-      const category: Category = {
+  saveSubcategory(): void {
+    this.formSubcategory.get('categoryId').setValue(this.categoryId);
+    if (this.formSubcategory.valid) {
+      const subcategory: Subcategory = {
         name: this.getName,
         description: this.getDescription,
-        colorId: this.getColorId,
-        imageURL: this.getImageURL
+        imageURL: this.getImageURL,
+        categoryId: this.getCategoryId
       };
       this.initializeForm();
       this.uploadFileComp.inicializeUpload();
 
-      this.vitaapp.saveCategory(category).subscribe(
+     this.vitaapp.saveSubcategory(subcategory).subscribe(
         resp => {
           console.log(resp);
-          this.reloadCateries.emit(true);
+          this.reloadSubcategories.emit(true);
           Notify('Categoria agregada correctamente.', null, null, 'success');
         }, err => {
           console.log(err)
@@ -57,65 +59,63 @@ export class FormSubcategoryComponent implements OnInit {
       )
     } else {
       this.validateForm();
-      this.invalidUrl =  this.formCategory.get('imageURL').invalid;
+      this.invalidUrl =  this.formSubcategory.get('imageURL').invalid;
     }
   }
 
   initializeForm(): void {
     this.invalidUrl = false;
-    this.formCategory = this.formBuilder.group({
+    this.formSubcategory = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      colorId: ['', Validators.required],
-      imageURL: ['', Validators.required]
+      imageURL: ['', Validators.required],
+      categoryId: ['', Validators.required]
     });
   }
 
   get invalidName(): boolean {
     return (
-      this.formCategory.get('name').invalid &&
-      this.formCategory.get('name').touched
+      this.formSubcategory.get('name').invalid &&
+      this.formSubcategory.get('name').touched
     );
   }
   get invalidDescription(): boolean {
     return (
-      this.formCategory.get('description').invalid &&
-      this.formCategory.get('description').touched
-    );
-  }
-  get invalidColor(): boolean {
-    return (
-      this.formCategory.get('colorId').invalid &&
-      this.formCategory.get('colorId').touched
+      this.formSubcategory.get('description').invalid &&
+      this.formSubcategory.get('description').touched
     );
   }
 
   setImageURL(imageURL: string): void {
     this.invalidUrl = false;
-    this.formCategory.get('imageURL').setValue(imageURL);
+    this.formSubcategory.get('imageURL').setValue(imageURL);
+  }
+
+  setCategoryId(categoryId: number): void {
+    this.categoryId = categoryId;
   }
 
   get getName(): string {
-    return this.formCategory.get('name').value;
+    return this.formSubcategory.get('name').value;
   }
 
   get getDescription(): string {
-    return this.formCategory.get('description').value;
-  }
-
-  get getColorId(): number {
-    return this.formCategory.get('colorId').value;
+    return this.formSubcategory.get('description').value;
   }
 
   get getImageURL(): string {
-    return this.formCategory.get('imageURL').value;
+    return this.formSubcategory.get('imageURL').value;
+  }
+
+  get getCategoryId(): number {
+    return this.formSubcategory.get('categoryId').value;
   }
 
 
 
   validateForm(): void {
-    if (this.formCategory.invalid) {
-      return Object.values(this.formCategory.controls).forEach((control) =>
+    if (this.formSubcategory.invalid) {
+      return Object.values(this.formSubcategory.controls).forEach((control) =>
         control.markAllAsTouched()
       );
     }

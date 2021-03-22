@@ -1,14 +1,14 @@
 <section>
   <div class="container__form">
     <h3 class="title">Agregar Categoria</h3>
-    <form [formGroup]="formCategory"  (ngSubmit)="saveCategory()">
+    <form [formGroup]="formSubcategory"  (ngSubmit)="saveSubcategory()">
       <div class="form-group">
-        <label for="">Nombre de la Categoria</label>
+        <label for="f-name-subcat">Nombre de la Categoria</label>
         <input
           type="text"
           class="form-control"
           name=""
-          id="f-name-cat"
+          id="f-name-subcat"
           aria-describedby="helpId"
           placeholder="Ingrese el nombre de la Categoria"
           formControlName="name"
@@ -19,35 +19,14 @@
         >
       </div>
       <div class="form-group">
-        <label for="">Descripcion de la Categoria</label>
-        <textarea class="form-control" name="" id="" rows="3" formControlName="description" [class.is-invalid]="invalidDescription"></textarea>
+        <label for="f-des-subcat">Descripcion de la Categoria</label>
+        <textarea class="form-control" name="" id="f-des-subcat" rows="3" formControlName="description" [class.is-invalid]="invalidDescription"></textarea>
         <small id="helpId" class="form-text text-danger" *ngIf="invalidDescription"
         >Ingrese una description</small
       >
       </div>
       <div class="form-group">
-        <label for="">Color del Contenedor</label>
-        <div class="color__container">
-          <div class="color__item" *ngFor="let color of colors; let i = index">
-            <input
-              type="radio"
-              class="form-check-input"
-              name="colorId"
-              id="formColCat{{ i }}"
-              [value]="color.colorId"
-              formControlName="colorId"
-            />
-            <label
-              for="formColCat{{ i }}"
-              [ngStyle]="{ 'background-color': '#' + color.colorCode }"
-            ></label>
-          </div>
-        </div>
-        <small id="helpId" class="form-text text-danger" *ngIf="invalidColor"
-          >Seleccione un color</small
-        >
-      </div>
-      <div class="form-group">
+        <label for="">Pictograma de la subcategoría</label>
         <app-upload-form #uploadFileComp (pathImage)="setImageURL($event)"></app-upload-form>
         <small id="helpId" class="form-text text-danger" *ngIf="invalidUrl"
           >Ingrese una imagen</small
