@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FormPictogramComponent } from './form-pictogram.component';
 
@@ -6,7 +6,7 @@ describe('FormPictogramComponent', () => {
   let component: FormPictogramComponent;
   let fixture: ComponentFixture<FormPictogramComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FormPictogramComponent ]
     })

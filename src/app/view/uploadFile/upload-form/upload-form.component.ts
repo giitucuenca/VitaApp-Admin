@@ -1,6 +1,8 @@
 import { FileUploadService } from './../../../services/firebase/file-upload.service';
 import { FileUpload } from './../../../controller/models/FileUpload';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-upload-form',
@@ -11,6 +13,7 @@ export class UploadFormComponent implements OnInit {
   selectedFiles?: FileList;
   currentFileUpload?: FileUpload;
   percentage = 0;
+  @Output() pathImage = new EventEmitter<string>();
 
   constructor(private uploadService: FileUploadService) {}
 
@@ -20,7 +23,6 @@ export class UploadFormComponent implements OnInit {
     this.selectedFiles = event.target.files;
     this.upload();
   }
-
 
   inicializeUpload(): void {
     this.selectedFiles = undefined;
@@ -35,19 +37,26 @@ export class UploadFormComponent implements OnInit {
 
       if (file) {
         this.currentFileUpload = new FileUpload(file);
-        this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-          (percentage) => {
-            this.percentage = Math.round(percentage ? percentage : 0);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+        this.uploadService
+          .pushFileToStorage(this.currentFileUpload)
+          .subscribe((resp) => {
+            this.percentage = (resp.bytesTransferred * 100) / resp.totalBytes;
+            if ((resp.bytesTransferred * 100) / resp.totalBytes > 99) {
+              resp.ref.getDownloadURL().then((path: string) => {
+                console.log(path);
+
+                this.pathImage.emit(path);
+              });
+            }
+            // * Una vez la subida finaliza se guarda el URL que nos devuelve firebase para guardar las imagenes.
+          });
       }
     }
   }
 
   get getUrlFile(): string {
-    return this.currentFileUpload && this.currentFileUpload.url ? this.currentFileUpload.url : undefined;
+    return this.currentFileUpload && this.currentFileUpload.url
+      ? this.currentFileUpload.url
+      : undefined;
   }
 }

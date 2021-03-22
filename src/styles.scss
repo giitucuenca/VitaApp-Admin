@@ -35,7 +35,7 @@ $vitaapp-ucuenca-admin-theme: mat-light-theme(
 @include angular-material-theme($vitaapp-ucuenca-admin-theme);
 
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/scss/bootstrap";
+@import "assets/Scss/bootstrap/scss/bootstrap.scss";
 @import "assets/Scss/header";
 @import "assets/Scss/footer";
 @import "assets/Scss/couters";
@@ -128,3 +128,9 @@ $custom-typography: mat-typography-config(
   }
 }
 
+.form__btn {
+  text-align: center;
+  button {
+    min-width: 200px;
+  }
+}

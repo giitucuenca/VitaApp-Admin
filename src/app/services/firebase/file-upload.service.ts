@@ -4,7 +4,7 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class FileUploadService {
   ) {}
 
   // * Agregar archivos para ser subidos a firebase
-  pushFileToStorage(fileUpload: FileUpload): Observable<number | undefined> {
+  pushFileToStorage(fileUpload: FileUpload): Observable<any> {
     // * Se crea la ruta donde se guardara el archivo con su nombre incluido
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
     // * Se obtine la referecia al path donde se guardara el archivo
@@ -25,22 +25,18 @@ export class FileUploadService {
     const uploadTask = this.storage.upload(filePath, fileUpload.file);
     // * El proceso de subida es async por lo que debemos espera a que se finalize la subida
     // * por medio finalize() de rxjs
-    uploadTask
+    return uploadTask
       .snapshotChanges()
       .pipe(
-        finalize(() => {
-          storageRef.getDownloadURL().subscribe((downloadURL) => {
-            // * Una vez la subida finaliza se guarda el URL que nos devuelve firebase para guardar las imagenes.
-            fileUpload.url = downloadURL;
-            // * Se guarda el nombre ademas en el modelo que guarda la informacion del archivo.
-            fileUpload.name = fileUpload.file.name;
-          });
+        map(resp => {
+          fileUpload.progres = resp.bytesTransferred * 100 / resp.totalBytes;
+
+          return resp;
         })
-      )
-      .subscribe();
+      );
 
     // * Sirve para guardar el progreso 1 - 100 de subida de un archivo.
-    return uploadTask.percentageChanges();
+    // return uploadTask.percentageChanges();
   }
 
   // * Sirve para eliminar un archivo subido a Storage de firebase

@@ -14,6 +14,8 @@ declare var Notify: any;
 export class FormCategoryComponent implements OnInit {
   @ViewChild('uploadFileComp') uploadFileComp: UploadFormComponent;
   @Output() reloadCateries = new EventEmitter<boolean>();
+  invalidUrl = false;
+
   colors: Color[] = [];
   formCategory: FormGroup;
   constructor(
@@ -33,12 +35,12 @@ export class FormCategoryComponent implements OnInit {
   }
 
   saveCategory(): void {
-    if (this.formCategory.valid && !this.invalidUrl) {
+    if (this.formCategory.valid) {
       const category: Category = {
         name: this.getName,
         description: this.getDescription,
         colorId: this.getColorId,
-        imageURL: this.uploadFileComp.getUrlFile
+        imageURL: this.getImageURL
       };
       this.initializeForm();
       this.uploadFileComp.inicializeUpload();
@@ -55,14 +57,17 @@ export class FormCategoryComponent implements OnInit {
       )
     } else {
       this.validateForm();
+      this.invalidUrl =  this.formCategory.get('imageURL').invalid;
     }
   }
 
   initializeForm(): void {
+    this.invalidUrl = false;
     this.formCategory = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      colorId: ['', Validators.required]
+      colorId: ['', Validators.required],
+      imageURL: ['', Validators.required]
     });
   }
 
@@ -85,8 +90,9 @@ export class FormCategoryComponent implements OnInit {
     );
   }
 
-  get invalidUrl(): boolean {
-    return this.uploadFileComp && this.uploadFileComp.getUrlFile === undefined;
+  setImageURL(imageURL: string): void {
+    this.invalidUrl = false;
+    this.formCategory.get('imageURL').setValue(imageURL);
   }
 
   get getName(): string {
@@ -100,6 +106,12 @@ export class FormCategoryComponent implements OnInit {
   get getColorId(): number {
     return this.formCategory.get('colorId').value;
   }
+
+  get getImageURL(): string {
+    return this.formCategory.get('imageURL').value;
+  }
+
+
 
   validateForm(): void {
     if (this.formCategory.invalid) {
