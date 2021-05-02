@@ -1,32 +1,95 @@
 <header>
+  <div class="header__logos">
+    <div class="header__logo">
+      <img src="assets/Images/logo/logo_2.png" alt="Logo de vitaapp" />
+    </div>
+    <div class="header__logo header-hidden">
+      <img
+        src="assets/Images/logo/u_c.png"
+        alt="Logo de la Universidad de Cuenca"
+      />
+    </div>
+  </div>
   <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="header__logos">
-      <div class="header__logo">
-        <img src="assets/Images/logo/logo_2.png" alt="Logo de vitaapp">
-      </div>
-      <div class="header__logo">
-        <img src="assets/Images/logo/u_c.png" alt="Logo de la Universidad de Cuenca">
+    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul #navbarAdmin class="navbar-nav text-secondary">
+          <li class="nav-item" routerLink="/main" [routerLinkActive]="'active'">
+            <a class="nav-link h3 m-0"
+              ><span><i class="fas fa-user-friends"></i> Usuarios</span></a
+            >
+          </li>
+          <li
+            class="nav-item"
+            routerLink="/panel/categorias"
+            [routerLinkActive]="'active'"
+          >
+            <a class="nav-link h3 m-0"
+              ><span><i class="fas fa-border-all"></i> Tableros</span></a
+            >
+          </li>
+          <li
+            class="nav-item"
+            routerLink="/ayudas"
+            [routerLinkActive]="'active'"
+          >
+            <a class="nav-link h3 m-0"
+              ><span><i class="fas fa-border-all"></i> Ayudas</span></a
+            >
+          </li>
+          <li class="nav-item border-red" routerLink="/login">
+            <a class="nav-link h3 m-0"
+              ><span><i class="fas fa-sign-out-alt"></i> Salir</span></a
+            >
+          </li>
+        </ul>
       </div>
     </div>
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+  </nav>
+  <!-- <nav class="navbar navbar-expand-lg navbar-light">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse normal-text" id="navbarNav">
-      <ul #navbarAdmin class="navbar-nav text-secondary ">
-        <li class="nav-item "  routerLink="/main" [routerLinkActive] = "'active'">
-          <a class="nav-link h5"><span><i class="fas fa-user-friends"></i> Usuarios</span></a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul #navbarAdmin class="navbar-nav text-secondary">
+        <li class="nav-item" routerLink="/main" [routerLinkActive]="'active'">
+          <a class="nav-link h5"
+            ><span><i class="fas fa-user-friends"></i> Usuarios</span></a
+          >
         </li>
-        <li class="nav-item"  routerLink="/board" [routerLinkActive] = "'active'">
-          <a class="nav-link h5"><span><i class="fas fa-border-all"></i> Tableros</span></a>
+        <li class="nav-item" routerLink="/board" [routerLinkActive]="'active'">
+          <a class="nav-link h5"
+            ><span><i class="fas fa-border-all"></i> Tableros</span></a
+          >
         </li>
-        <li class="nav-item border-red"   routerLink="/login">
-          <a class="nav-link h5"><span><i class="fas fa-sign-out-alt"></i> Salir</span></a>
+        <li class="nav-item border-red" routerLink="/login">
+          <a class="nav-link h5"
+            ><span><i class="fas fa-sign-out-alt"></i> Salir</span></a
+          >
         </li>
       </ul>
     </div>
-  </nav>
+  </nav> -->
 </header>
 <content class="container">
   <router-outlet></router-outlet>
@@ -34,5 +97,3 @@
 <footer class="d-flex align-items-center justify-content-center text-white">
   VitaApp - {{ date | date: "yyyy" }}
 </footer>
-
-

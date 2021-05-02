@@ -1,6 +1,5 @@
 $grid-breakpoints: (
-  xs: 0,
-  xsm: 375px,
+  xs: 375px,
   sm: 576px,
   md: 768px,
   lg: 992px,
@@ -13,8 +12,8 @@ $grid-breakpoints: (
   }
 }
 
-@mixin respond-xsm{
-  @media only screen and (min-width: map-get($grid-breakpoints , xsm)){
+@mixin respond-xs{
+  @media only screen and (min-width: map-get($grid-breakpoints , xs)){
     @content;
   }
 }

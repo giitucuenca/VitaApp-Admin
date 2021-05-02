@@ -1,0 +1,21 @@
+<div class="form-radio mt-4">
+  <div class="container-radio" *ngFor="let image of images; let i = index">
+    <input
+      type="radio"
+      class="image-radio"
+      name="image-pic-radio-{{ usedBy }}"
+      id="image-{{ i }}-{{ usedBy }}"
+      [value]="image.imageUrl"
+      [(ngModel)]="principalImage"
+    />
+
+    <label for="image-{{ i }}-{{ usedBy }}">
+      <i class="check fas fa-check-circle text-success"></i>
+      <i
+        class="del fas fa-minus-circle text-danger"
+        (click)="deleteImage($event, i, image.imageUrl)"
+      ></i>
+      <img [src]="image.imageUrl" alt="pictograma" />
+    </label>
+  </div>
+</div>

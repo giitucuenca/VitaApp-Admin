@@ -1,0 +1,59 @@
+@import "../../../../assets/Scss/mixins/gap";
+@import "../../../../assets/Scss/mixins/respond-to";
+@import "../../../../assets/Scss/variables";
+
+.form-radio {
+  @include gap;
+  .container-radio {
+    @include gap-separation;
+    width: calc(25% - 0.5rem);
+
+    @include respond-md {
+      width: calc(16.6666% - 0.5rem);
+    }
+    @include respond-lg {
+      width: calc(10% - 0.5rem);
+    }
+    input[type="radio"] {
+      position: absolute;
+      left: -5000em;
+
+      &:checked ~ label {
+        .check {
+          bottom: 0;
+          display: inline;
+          position: absolute;
+          z-index: 150;
+          font-size: 1rem;
+        }
+        border-bottom: 4px solid $primary;
+      }
+    }
+    label {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      padding-top: calc(100% + 1rem);
+      position: relative;
+      border-bottom: 4px solid transparent;
+      .check {
+        display: none;
+      }
+      .del {
+        top: -1rem;
+        right: -0.5rem;
+        position: absolute;
+        z-index: 150;
+        font-size: 2rem;
+        cursor: pointer;
+      }
+      img {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+      }
+    }
+  }
+}

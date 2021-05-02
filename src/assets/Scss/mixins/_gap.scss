@@ -1,6 +1,6 @@
 @mixin gap($gap: 0.5rem) {
   display: flex;
-  // flex-wrap: wrap;
+  flex-wrap: wrap;
   // justify-content: center;
   margin: (-$gap) 0rem 0rem (-$gap);
 }

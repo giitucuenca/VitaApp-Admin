@@ -1,8 +1,16 @@
 import { FileUploadService } from './../../../services/firebase/file-upload.service';
 import { FileUpload } from './../../../controller/models/FileUpload';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { FileUploadResponse } from 'src/app/controller/interfaces/image.interface';
 
 @Component({
   selector: 'app-upload-form',
@@ -13,7 +21,8 @@ export class UploadFormComponent implements OnInit {
   selectedFiles?: FileList;
   currentFileUpload?: FileUpload;
   percentage = 0;
-  @Output() pathImage = new EventEmitter<string>();
+  @ViewChild('inputImage') inputImage: ElementRef<HTMLInputElement>;
+  @Output() pathImage = new EventEmitter<FileUploadResponse>();
 
   constructor(private uploadService: FileUploadService) {}
 
@@ -44,8 +53,9 @@ export class UploadFormComponent implements OnInit {
             if ((resp.bytesTransferred * 100) / resp.totalBytes > 99) {
               resp.ref.getDownloadURL().then((path: string) => {
                 console.log(path);
-
-                this.pathImage.emit(path);
+                const name = this.currentFileUpload.name;
+                this.pathImage.emit({ name, imageUrl: path });
+                this.inputImage.nativeElement.value = '';
               });
             }
             // * Una vez la subida finaliza se guarda el URL que nos devuelve firebase para guardar las imagenes.

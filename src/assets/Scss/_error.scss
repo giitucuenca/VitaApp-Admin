@@ -1,0 +1,12 @@
+.error__message {
+  text-align: center;
+  .error__image {
+    img {
+      width: 150px;
+    }
+  }
+  .error__text {
+    font-size: 3rem;
+    line-height: 1.2;
+  }
+}

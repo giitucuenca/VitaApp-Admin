@@ -1,0 +1,50 @@
+<section #pages class="categories animate__bounceIn">
+  <section class="form__custom">
+    <p-fieldset
+      p-fieldset
+      legend="Agregar Categoria"
+      [toggleable]="true"
+      [collapsed]="true"
+    >
+      <app-form-category
+        (reloadCateries)="getAllCategories()"
+      ></app-form-category>
+    </p-fieldset>
+  </section>
+  <section class="form__custom">
+    <app-collapse-panel #collapsePanelCat>
+      <app-form-edit-category
+        #formEditCategory
+        (reloadCateries)="collapsePanelCatAndReload()"
+        (collapse)="collapseEditCategory()"
+      ></app-form-edit-category>
+    </app-collapse-panel>
+  </section>
+
+  <div class="row" *ngIf="areTheAreCategories">
+    <div
+      class="col-12 col-md-6 col-lg-4 mt-4"
+      *ngFor="let category of categories"
+    >
+      <app-card
+        [category]="category"
+        (clickContent)="openSubcategory(category.categoryId)"
+        (clickEdit)="editCategory(category)"
+      ></app-card>
+    </div>
+  </div>
+  <div class="row" *ngIf="!areTheAreCategories">
+    <div
+      class="col-12 col-md-6 col-lg-4 mt-4"
+      *ngFor="let category of skeletonCategories"
+    >
+      <app-skeleton-card [typeSkeleton]="1"></app-skeleton-card>
+    </div>
+  </div>
+  <div class="error__message" *ngIf="areTheAreCategories && !categories.length">
+    <div class="error__image">
+      <img src="assets/Images/svg/028-folder.svg" alt="folder" />
+    </div>
+    <div class="error__text">No hay categorías agregadas por el momento.</div>
+  </div>
+</section>

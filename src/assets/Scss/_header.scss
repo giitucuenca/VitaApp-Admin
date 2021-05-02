@@ -3,28 +3,37 @@
 @import "./variables";
 
 header {
-  display: flex;
   position: relative;
-  min-height: 4rem;
+  display: flex;
+  min-height: 5rem;
   margin-bottom: 3rem;
-  background:  $bg-linear;
-  @include respond-md {
+  background: $bg-linear;
+  @include respond-lg {
     min-height: 6rem;
   }
   .header__logos {
+    @include gap;
     position: absolute;
-    top: 1.5rem;
+    top: 1rem;
     left: 50%;
-    transform: translateX(-50%);
-    @include respond-md {
+    transform: translate(-50%, 0%);
+    @include respond-lg {
       left: 1rem;
       top: 1.5rem;
       transform: none;
     }
-    @include gap;
+
+    .logo__hidden {
+      display: none;
+    }
+    @include respond-lg {
+      .logo__hidden {
+        display: initial;
+      }
+    }
     .header__logo {
-      height: 2rem;
-      @include respond-md {
+      height: 3rem;
+      @include respond-lg {
         height: 3rem;
       }
       @include gap-separation;
@@ -37,15 +46,10 @@ header {
   .navbar {
     flex: 1 1 auto;
     justify-content: flex-end;
-    padding: 1rem 1rem;
     z-index: 100;
+    padding: 1rem;
     .navbar-toggler {
-      height: 40px;
-      border: none;
-      &:focus {
-        border: none;
-        outline: none;
-      }
+      height: 3rem;
     }
     .navbar-collapse {
       justify-content: flex-end;
@@ -56,6 +60,9 @@ header {
       }
     }
 
+    .nav-item {
+      cursor: pointer;
+    }
   }
 
   .navbar-light .navbar-nav {
@@ -91,16 +98,15 @@ header {
       }
     }
   }
-
 }
-
-
-
-
-
-
-
 
 .border-red {
   border-color: red !important;
+}
+
+.header-hidden {
+  display: none;
+  @include respond-md {
+    display: block;
+  }
 }

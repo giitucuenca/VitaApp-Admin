@@ -1,1 +1,43 @@
-<p>form-pictogram works!</p>
+<section>
+  <div class="container__form">
+    <h3 class="title">Agregar Pictograma</h3>
+    <form [formGroup]="formPictogram" (ngSubmit)="savePictogram()">
+      <div class="mb-3">
+        <label class="form-label" for="f-name-pic">Nombre del Pictograma</label>
+        <input
+          type="text"
+          class="form-control"
+          name=""
+          id="f-name-pic"
+          aria-describedby="helpId"
+          placeholder="Ingrese el nombre del pictograma"
+          formControlName="name"
+          [class.is-invalid]="invalidName"
+        />
+        <small id="helpId" class="form-text text-danger" *ngIf="invalidName"
+          >Ingrese un nombre</small
+        >
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="">Imagen del Pictograma</label>
+        <app-upload-form
+          #uploadFileComp
+          (pathImage)="addImage($event)"
+        ></app-upload-form>
+        <small id="helpId" class="form-text text-danger" *ngIf="invalidUrl"
+          >Ingrese una imagen</small
+        >
+      </div>
+      <div>
+        <app-images-radio
+          [usedBy]="'pictogram'"
+          #imageRadioPictogram
+        ></app-images-radio>
+      </div>
+
+      <div class="mb-3 form__btn">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</section>

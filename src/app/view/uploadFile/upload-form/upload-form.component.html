@@ -1,8 +1,8 @@
 <section>
-
-  <div class="form-group">
+  <div class="mb-3">
     <label>
       <input
+        #inputImage
         type="file"
         class="text-nowrap text-truncate"
         (change)="selectFile($event)"
@@ -23,7 +23,10 @@
     </div>
   </div>
 
-  <div class="pic__url text-success text-center"  *ngIf="currentFileUpload && currentFileUpload.url">
+  <div
+    class="pic__url text-success text-center"
+    *ngIf="currentFileUpload && currentFileUpload.url"
+  >
     Imagen subida correctamente.
   </div>
 </section>

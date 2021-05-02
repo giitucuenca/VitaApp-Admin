@@ -1,42 +1,102 @@
 <div class="card">
-  <div class="card-content" [ngStyle]="{'background-color': '#'+category.colorM.colorCode}" *ngIf="category">
+  <div
+    class="card-content"
+    [ngStyle]="{ 'background-color': '#' + category.color }"
+    *ngIf="category"
+  >
     <div class="card-body pb-0">
-      <div class="media d-flex">
-        <div class="align-self-center" style="max-width: 75px;">
-          <img class="img-fluid" [src]="category.imageURL" alt="">
+      <div class="media d-flex" (click)="clickedContent()">
+        <div class="align-self-center" style="max-width: 75px">
+          <img class="img-fluid" [src]="category.imageUrl" alt="" />
         </div>
-        <div class="media-body text-right">
-          <h3>{{category.name}}</h3>
-          <span>{{category.description}}</span>
+        <div class="media-body text-end" style="flex: 1 1 auto">
+          <h3 class="fw-bolder text-capitalize">{{ category.name }}</h3>
+          <span>{{ category.description }}</span>
         </div>
       </div>
       <div class="gestion">
-        <div>
+        <div (click)="clickedDelete()">
           <i class="fas fa-trash"></i> Eliminar
         </div>
-        <div>
-          <i class="fas fa-edit"></i> Modificar
+        <div (click)="clickedEdit()"><i class="fas fa-edit"></i> Modificar</div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="card-content"
+    [ngStyle]="{
+      'background-color': '#' + subcategory.color
+    }"
+    *ngIf="subcategory"
+  >
+    <div class="card-body pb-0">
+      <div class="media d-flex" (click)="clickedContent()">
+        <div class="align-self-center img-card" style="width: 75px">
+          <img class="img-fluid" [src]="subcategory.imageUrl" alt="" />
+        </div>
+        <div class="media-body text-end" style="flex: 1 1 auto">
+          <h3 class="fw-bolder text-capitalize">{{ subcategory.name }}</h3>
+          <span>{{ subcategory.description }}</span>
+        </div>
+      </div>
+      <div class="gestion">
+        <div (click)="clickedDelete()">
+          <i class="fas fa-trash"></i> Eliminar
+        </div>
+        <div (click)="clickedEdit()"><i class="fas fa-edit"></i> Modificar</div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="card-content"
+    [ngStyle]="{
+      'background-color': '#' + pictogram.color
+    }"
+    *ngIf="pictogram"
+  >
+    <div class="card-body p-0">
+      <div class="" (click)="clickedContent()">
+        <div class="img-card" style="width: 100%">
+          <img class="img-fluid" [src]="pictogram.imageUrl" alt="" />
+        </div>
+        <div class="media-body text-center">
+          {{ pictogram.name }}
+        </div>
+      </div>
+      <div class="gestion">
+        <div (click)="clickedDelete()">
+          <i class="fas fa-trash"></i>
+        </div>
+        <div (click)="clickedEdit()">
+          <i class="fas fa-edit"></i>
         </div>
       </div>
     </div>
   </div>
-  <div class="card-content" [ngStyle]="{'background-color': '#'+subcategory.category.colorM.colorCode}" *ngIf="subcategory">
-    <div class="card-body pb-0">
-      <div class="media d-flex">
-        <div class="align-self-center" style="max-width: 75px;">
-          <img class="img-fluid" [src]="subcategory.imageURL" alt="">
+
+  <div
+    class="card-content"
+    [ngStyle]="{
+      'background-color': '#' + 'fff'
+    }"
+    *ngIf="pictogramHelp"
+  >
+    <div class="card-body p-0">
+      <div class="" (click)="clickedContent()">
+        <div class="img-card" style="width: 100%">
+          <img class="img-fluid" [src]="pictogramHelp.imageUrl" alt="" />
         </div>
-        <div class="media-body text-right">
-          <h3>{{subcategory.name}}</h3>
-          <span>{{subcategory.description}}</span>
+        <div class="media-body text-center">
+          {{ pictogramHelp.name }}
         </div>
       </div>
       <div class="gestion">
-        <div>
-          <i class="fas fa-trash"></i> Eliminar
+        <div (click)="clickedDelete()">
+          <i class="fas fa-trash"></i>
         </div>
-        <div>
-          <i class="fas fa-edit"></i> Modificar
+        <div (click)="clickedEdit()">
+          <i class="fas fa-edit"></i>
         </div>
       </div>
     </div>

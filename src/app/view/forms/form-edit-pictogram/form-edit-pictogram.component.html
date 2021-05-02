@@ -1,0 +1,52 @@
+<section>
+  <div class="container__form">
+    <h3 class="title">Agregar Pictograma</h3>
+    <form [formGroup]="formPictogram" (ngSubmit)="savePictogram()">
+      <div class="mb-3">
+        <label class="form-label" for="formEditPicName"
+          >Nombre del Pictograma</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          name=""
+          id="formEditPicName"
+          aria-describedby="helpId"
+          placeholder="Ingrese el nombre del pictograma"
+          formControlName="name"
+          [class.is-invalid]="invalidName"
+        />
+        <small class="form-text text-danger" *ngIf="invalidName"
+          >Ingrese un nombre</small
+        >
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="">Imagen del Pictograma</label>
+        <app-upload-form
+          #uploadFileComp
+          (pathImage)="addImage($event)"
+        ></app-upload-form>
+        <small class="form-text text-danger" *ngIf="invalidUrl"
+          >Ingrese una imagen</small
+        >
+      </div>
+      <div>
+        <app-images-radio
+          [usedBy]="'pictogramEdit'"
+          #imageRadioPictogram
+        ></app-images-radio>
+      </div>
+
+      <div class="my-3 form__btn">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button
+          type="button"
+          class="btn btn-danger text-white"
+          (click)="collapsePanel()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

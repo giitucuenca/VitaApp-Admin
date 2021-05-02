@@ -1,0 +1,94 @@
+<section>
+  <div class="container__form">
+    <h3 class="title">Editar Categoria</h3>
+    <form [formGroup]="formCategory" (ngSubmit)="saveCategory()">
+      <div class="mb-3">
+        <label class="form-label" for="formEditCatName"
+          >Nombre de la Categoria</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          name=""
+          id="formEditCatName"
+          aria-describedby="helpId"
+          placeholder="Ingrese el nombre de la Categoria"
+          formControlName="name"
+          [class.is-invalid]="invalidName"
+          maxlength="25"
+        />
+        <small id="helpId" class="form-text text-danger" *ngIf="invalidName"
+          >Ingrese un nombre</small
+        >
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="formEditCatDescription"
+          >Descripcion de la Categoria</label
+        >
+        <textarea
+          class="form-control"
+          name=""
+          id="formEditCatDescription"
+          rows="3"
+          formControlName="description"
+          [class.is-invalid]="invalidDescription"
+          maxlength="40"
+        ></textarea>
+        <small
+          id="helpId"
+          class="form-text text-danger"
+          *ngIf="invalidDescription"
+          >Ingrese una description</small
+        >
+      </div>
+      <div class="mb-3">
+        <label for="" class="form-label">Color del Contenedor</label>
+        <div class="color__container">
+          <div class="color__item" *ngFor="let color of colors; let i = index">
+            <input
+              type="radio"
+              class="form-check-input"
+              name="colorId"
+              id="formEditColCat{{ i }}"
+              [value]="color.colorId"
+              formControlName="colorId"
+            />
+            <label
+              for="formEditColCat{{ i }}"
+              [ngStyle]="{ 'background-color': '#' + color.color }"
+            ></label>
+          </div>
+        </div>
+        <small id="helpId" class="form-text text-danger" *ngIf="invalidColor"
+          >Seleccione un color</small
+        >
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="">Pictograma de la categoría</label>
+        <app-upload-form
+          #uploadFileComp
+          (pathImage)="addImage($event)"
+        ></app-upload-form>
+        <small id="helpId" class="form-text text-danger" *ngIf="invalidUrl"
+          >Ingrese una imagen</small
+        >
+      </div>
+      <div>
+        <app-images-radio
+          [usedBy]="'editCategory'"
+          #imageRadioCategory
+        ></app-images-radio>
+      </div>
+      <div class="my-3 form__btn">
+        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button
+          type="button"
+          class="btn btn-danger text-white"
+          (click)="collapsePanel()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

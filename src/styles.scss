@@ -41,6 +41,10 @@ $vitaapp-ucuenca-admin-theme: mat-light-theme(
 @import "assets/Scss/couters";
 @import "assets/Scss/category";
 @import "assets/Scss/mixins/gap";
+@import "assets/Scss/pictogram-grid";
+@import "assets/Scss/panel";
+@import "assets/Scss/error";
+
 html,
 body {
   height: 100%;
@@ -64,15 +68,47 @@ h6 {
 
 $custom-typography: mat-typography-config(
   $font-family: "Oswald, sans-serif",
-  $headline: mat-typography-level(42px, 48px, 700),
-  $title: mat-typography-level(32px),
-  $subheading-2: mat-typography-level(24px),
-  $subheading-1: mat-typography-level(20px),
-  $body-1: mat-typography-level(1rem, 24px),
+  $headline: mat-typography-level($h1-font-size),
+  $title: mat-typography-level($h2-font-size),
+  $subheading-2: mat-typography-level($h3-font-size),
+  $subheading-1: mat-typography-level($h4-font-size),
+  $body-1: mat-typography-level($font-size-base),
+  $body-2: mat-typography-level($font-size-base),
 );
 
-@include angular-material-typography($custom-typography);
+/*$h1: 42px;
+$h2: 32px;
+$h3: 24px;
+$h4: 20px;
+$h5: 1rem;
 
+$custom-typography: mat-typography-config(
+  $font-family: "Oswald, sans-serif",
+  $headline: mat-typography-level($h1, 48px, 700),
+  $title: mat-typography-level($h2),
+  $subheading-2: mat-typography-level($h3),
+  $subheading-1: mat-typography-level($h4),
+  $body-1: mat-typography-level($h5, 24px),
+);
+
+.h1 {
+  font-size: $h1;
+}
+.h2 {
+  font-size: $h2;
+}
+.h3 {
+  font-size: $h3;
+}
+.h4 {
+  font-size: $h4;
+}
+.h5 {
+  font-size: $h5;
+}
+
+@include angular-material-typography($custom-typography);
+*/
 #notify-vitaapp {
   cursor: pointer;
   position: fixed;
@@ -131,6 +167,12 @@ $custom-typography: mat-typography-config(
 .form__btn {
   text-align: center;
   button {
-    min-width: 200px;
+    margin: 0.25rem;
+  }
+
+  @include respond-md {
+    button {
+      min-width: 200px;
+    }
   }
 }

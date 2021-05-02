@@ -1,9 +1,18 @@
+import { ImagesRadioComponent } from './../../images/images-radio/images-radio.component';
 import { Category } from './../../../controller/interfaces/category.interface';
 import { UploadFormComponent } from './../../uploadFile/upload-form/upload-form.component';
 import { Color } from './../../../controller/interfaces/color.interface';
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { VitaappService } from 'src/app/services/vitaapp/vitaapp.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FileUploadResponse } from 'src/app/controller/interfaces/image.interface';
 declare var Notify: any;
 
 @Component({
@@ -13,6 +22,7 @@ declare var Notify: any;
 })
 export class FormCategoryComponent implements OnInit {
   @ViewChild('uploadFileComp') uploadFileComp: UploadFormComponent;
+  @ViewChild('imageRadioCategory') imageRadioCategory: ImagesRadioComponent;
   @Output() reloadCateries = new EventEmitter<boolean>();
   invalidUrl = false;
 
@@ -35,40 +45,50 @@ export class FormCategoryComponent implements OnInit {
   }
 
   saveCategory(): void {
+    this.setImageURL(this.imageRadioCategory.imagePrimary);
     if (this.formCategory.valid) {
       const category: Category = {
         name: this.getName,
         description: this.getDescription,
         colorId: this.getColorId,
-        imageURL: this.getImageURL
+        imageUrl: this.getImageURL,
+        images: this.imageRadioCategory.getImages,
       };
-      this.initializeForm();
-      this.uploadFileComp.inicializeUpload();
 
       this.vitaapp.saveCategory(category).subscribe(
-        resp => {
+        (resp) => {
           console.log(resp);
           this.reloadCateries.emit(true);
+          this.initializeForm();
+          this.uploadFileComp.inicializeUpload();
           Notify('Categoria agregada correctamente.', null, null, 'success');
-        }, err => {
-          console.log(err)
+        },
+        (err) => {
+          console.log(err);
           Notify('Error al agregar una categoria.', null, null, 'danger');
         }
-      )
+      );
     } else {
       this.validateForm();
-      this.invalidUrl =  this.formCategory.get('imageURL').invalid;
+      this.invalidUrl = this.formCategory.get('imageURL').invalid;
     }
   }
 
   initializeForm(): void {
     this.invalidUrl = false;
     this.formCategory = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(25)]],
+      description: ['', [Validators.required, Validators.maxLength(40)]],
       colorId: ['', Validators.required],
-      imageURL: ['', Validators.required]
+      imageURL: ['', Validators.required],
     });
+    if (this.imageRadioCategory) {
+      this.imageRadioCategory.emptyImages();
+    }
+  }
+
+  addImage(src: FileUploadResponse): void {
+    this.imageRadioCategory.addImage(src);
   }
 
   get invalidName(): boolean {
@@ -91,7 +111,12 @@ export class FormCategoryComponent implements OnInit {
   }
 
   setImageURL(imageURL: string): void {
-    this.invalidUrl = false;
+    if (imageURL) {
+      this.invalidUrl = false;
+    } else {
+      this.invalidUrl = true;
+    }
+
     this.formCategory.get('imageURL').setValue(imageURL);
   }
 
@@ -110,8 +135,6 @@ export class FormCategoryComponent implements OnInit {
   get getImageURL(): string {
     return this.formCategory.get('imageURL').value;
   }
-
-
 
   validateForm(): void {
     if (this.formCategory.invalid) {

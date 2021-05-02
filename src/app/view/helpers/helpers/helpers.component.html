@@ -1,0 +1,83 @@
+<section>
+  <h1 class="title">Ayudas</h1>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-bg">
+      <li class="breadcrumb-item h2 m-0 active">Ayudas</li>
+    </ol>
+  </nav>
+</section>
+
+<section class="categories panel animate__bounceIn">
+  <div class="form__custom">
+    <p-fieldset
+      p-fieldset
+      legend="Agregar Pictograma"
+      [toggleable]="true"
+      [collapsed]="true"
+    >
+      <app-form-helper
+        #appPictogram
+        (reloadPictograms)="getAllPictograms()"
+      ></app-form-helper>
+    </p-fieldset>
+  </div>
+  <section class="form__custom">
+    <app-collapse-panel #collapsePanelPic>
+      <app-form-edit-helper
+        #formEditPictogram
+        (reloadPictograms)="collapsePanelPicAndReload()"
+        (collapse)="collapseEditPictogram()"
+      ></app-form-edit-helper>
+    </app-collapse-panel>
+  </section>
+
+  <section class="mt-3">
+    <div class="pictogram-grid" *ngIf="areTherePictograms">
+      <div
+        class="pictogram"
+        *ngFor="let pictogram of pictograms; let i = index"
+      >
+        <app-card
+          [pictogramHelp]="pictogram"
+          (clickEdit)="editPictogram(pictogram)"
+          (clickDelete)="deletePictogram(pictogram.pictogramId)"
+        ></app-card>
+      </div>
+    </div>
+    <div class="pictogram-grid" *ngIf="!areTherePictograms">
+      <div class="pictogram" *ngFor="let category of skeletonPictograms">
+        <app-skeleton-card [typeSkeleton]="2"></app-skeleton-card>
+      </div>
+    </div>
+    <div
+      class="error__message"
+      *ngIf="areTherePictograms && !pictograms.length"
+    >
+      <div class="error__image">
+        <img src="assets/Images/svg/028-folder.svg" alt="folder" />
+      </div>
+      <div class="error__text">
+        No hay pictogramas agregados por el momento.
+      </div>
+    </div>
+  </section>
+</section>
+
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  key="positionDialog"
+  [position]="'top'"
+  [baseZIndex]="10000"
+  #cd
+>
+  <p-footer>
+    <button type="button" class="btn btn-primary" (click)="cd.reject()">
+      <i class="pi pi-times"></i> Cancelar
+    </button>
+    <button type="button" class="btn btn-primary" (click)="cd.accept()">
+      <i class="pi pi-check"></i> Aceptar
+    </button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-toast key="toastHelper" position="top-right"></p-toast>

@@ -1,5 +1,5 @@
 export interface Color {
-  colorId: number,
-  colorCode: String,
-  name: String
+  colorId: number;
+  color: String;
+  name: String;
 }
