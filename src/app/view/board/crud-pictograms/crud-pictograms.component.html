@@ -1,1 +1,43 @@
-<p>crud-pictograms works!</p>
+<section #pages class="pictogram animate__bounceIn">
+  <div class="form__custom">
+    <p-fieldset
+      p-fieldset
+      legend="Agregar Pictograma"
+      [toggleable]="true"
+      [collapsed]="true"
+    >
+      <app-form-pictogram
+        #appPictogram
+        (reloadPictograms)="getAllPictograms(idSubcategory)"
+      ></app-form-pictogram>
+    </p-fieldset>
+  </div>
+  <section class="form__custom">
+    <app-collapse-panel #collapsePanelPic>
+      <app-form-edit-pictogram
+        #formEditPictogram
+        (reloadPictograms)="collapsePanelPicAndReload(idSubcategory)"
+        (collapse)="collapseEditPictogram()"
+      ></app-form-edit-pictogram>
+    </app-collapse-panel>
+  </section>
+  <div class="pictogram-grid mt-3" *ngIf="areTherePictograms">
+    <div class="pictogram" *ngFor="let pictogram of pictograms; let i = index">
+      <app-card
+        [pictogram]="pictogram"
+        (clickEdit)="editPictogram(pictogram)"
+      ></app-card>
+    </div>
+  </div>
+  <div class="pictogram-grid" *ngIf="!areTherePictograms">
+    <div class="pictogram" *ngFor="let category of skeletonPictograms">
+      <app-skeleton-card [typeSkeleton]="2"></app-skeleton-card>
+    </div>
+  </div>
+  <div class="error__message" *ngIf="areTherePictograms && !pictograms.length">
+    <div class="error__image">
+      <img src="assets/Images/svg/028-folder.svg" alt="folder" />
+    </div>
+    <div class="error__text">No hay pictogramas agregados por el momento.</div>
+  </div>
+</section>

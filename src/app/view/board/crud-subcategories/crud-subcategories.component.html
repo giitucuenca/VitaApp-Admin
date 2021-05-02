@@ -1,1 +1,54 @@
-<p>crud-subcategories works!</p>
+<section #pages class="subcategory animate__bounceIn">
+  <div class="form__custom">
+    <p-fieldset
+      p-fieldset
+      legend="Agregar Subcategoria"
+      [toggleable]="true"
+      [collapsed]="true"
+      ><app-form-subcategory
+        #appSubcategory
+        (reloadSubcategories)="getAllSubcategories(idCategory)"
+      ></app-form-subcategory>
+    </p-fieldset>
+  </div>
+  <section class="form__custom">
+    <app-collapse-panel #collapsePanelSub>
+      <app-form-edit-subcategory
+        #formEditSubcategory
+        (reloadSubcategories)="collapsePanelSubAndReload(idCategory)"
+        (collapse)="collapseEditSubcategory()"
+      ></app-form-edit-subcategory>
+    </app-collapse-panel>
+  </section>
+  <div class="row" *ngIf="areThereSubcategories">
+    <div
+      class="col-12 col-md-6 col-lg-4 mt-4"
+      *ngFor="let subcategory of subcategories; let i = index"
+    >
+      <app-card
+        [subcategory]="subcategory"
+        (clickContent)="openPictograms(subcategory.subcategoryId)"
+        (clickEdit)="editSubcategory(subcategory)"
+      ></app-card>
+    </div>
+  </div>
+  <div class="row" *ngIf="!areThereSubcategories">
+    <div
+      class="col-12 col-md-6 col-lg-4 mt-4"
+      *ngFor="let category of skeletonCategories"
+    >
+      <app-skeleton-card [typeSkeleton]="1"></app-skeleton-card>
+    </div>
+  </div>
+  <div
+    class="error__message"
+    *ngIf="areThereSubcategories && !subcategories.length"
+  >
+    <div class="error__image">
+      <img src="assets/Images/svg/028-folder.svg" alt="folder" />
+    </div>
+    <div class="error__text">
+      No hay subcategorías agregadas por el momento.
+    </div>
+  </div>
+</section>

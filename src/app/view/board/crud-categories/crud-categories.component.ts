@@ -52,5 +52,7 @@ export class CrudCategoriesComponent implements OnInit {
     this.collapsePanelCat.closePanel();
   }
 
-  openSubcategory(categoryId: number): void {}
+  openSubcategory(categoryId: number): void {
+    this.router.navigate(['/panel/subcategorias', categoryId]);
+  }
 }
