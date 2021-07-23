@@ -44,6 +44,7 @@ $vitaapp-ucuenca-admin-theme: mat-light-theme(
 @import "assets/Scss/pictogram-grid";
 @import "assets/Scss/panel";
 @import "assets/Scss/error";
+@import "assets/Scss/form";
 
 html,
 body {
@@ -160,19 +161,6 @@ $custom-typography: mat-typography-config(
       &:checked ~ label {
         border-color: greenyellow;
       }
-    }
-  }
-}
-
-.form__btn {
-  text-align: center;
-  button {
-    margin: 0.25rem;
-  }
-
-  @include respond-md {
-    button {
-      min-width: 200px;
     }
   }
 }

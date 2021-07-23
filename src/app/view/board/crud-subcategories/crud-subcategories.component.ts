@@ -21,6 +21,8 @@ export class CrudSubcategoriesComponent implements OnInit {
   formEditSubcategory: FormEditSubcategoryComponent;
   @ViewChild('collapsePanelSub') collapsePanelSub: CollapsePanelComponent;
 
+  subMenuNavigation = ['Categorias', 'Subcategoria'];
+  pageCurrent: string;
   constructor(
     private vitaapp: VitaappService,
     private router: Router,
@@ -28,6 +30,8 @@ export class CrudSubcategoriesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.pageCurrent = this.subMenuNavigation[1];
+    this.skeletonCategories = Array(6).fill('');
     this.activeRoute.params.subscribe((params) => {
       this.idCategory = params['id'];
       this.getAllSubcategories(this.idCategory);
@@ -62,5 +66,15 @@ export class CrudSubcategoriesComponent implements OnInit {
 
   openPictograms(subcategoryId: number): void {
     this.router.navigate(['/panel/pictogramas', subcategoryId]);
+  }
+
+  goToCategories(index: number): void {
+    if (index == 0) {
+      this.router.navigateByUrl('/panel/categorias');
+    }
+  }
+
+  addCategoryId(): void {
+    this.appSubcategory.setCategoryId(this.idCategory);
   }
 }

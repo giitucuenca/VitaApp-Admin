@@ -16,6 +16,7 @@ import { Subcategory } from 'src/app/controller/interfaces/subcategory.interface
 import { FormEditCategoryComponent } from '../../forms/form-edit-category/form-edit-category.component';
 import { CollapsePanelComponent } from '../../components/collapse-panel/collapse-panel.component';
 import { FormEditSubcategoryComponent } from '../../forms/form-edit-subcategory/form-edit-subcategory.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -48,13 +49,17 @@ export class BoardComponent implements OnInit {
   @ViewChild('collapsePanelSub') collapsePanelSub: CollapsePanelComponent;
   @ViewChild('collapsePanelPic') collapsePanelPic: CollapsePanelComponent;
 
-  constructor(private vitaapp: VitaappService) {}
+  constructor(private vitaapp: VitaappService, private router: Router) {}
 
   ngOnInit(): void {
-    this.skeletonCategories = Array(6).fill('');
-    this.skeletonPictograms = Array(20).fill('');
+    // this.skeletonCategories = Array(6).fill('');
+    // this.skeletonPictograms = Array(20).fill('');
     this.pageCurrent = this.subMenu[0];
-    this.getAllCategories();
+    //this.getAllCategories();
+
+    if (this.router.url === '/panel') {
+      this.router.navigateByUrl('/panel/categorias');
+    }
   }
 
   openPage(index: number, id: number): void {

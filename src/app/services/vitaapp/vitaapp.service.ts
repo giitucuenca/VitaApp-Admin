@@ -11,8 +11,8 @@ import { PictogramHelp } from 'src/app/controller/interfaces/pictogram-help.inte
   providedIn: 'root',
 })
 export class VitaappService {
-  // BASE_URL = 'https://vitaappucuenca.herokuapp.com/vitaapp/api/v1';
-  BASE_URL = 'http://localhost:8080/vitaapp/api/v1';
+  BASE_URL = 'https://vitaappucuenca.herokuapp.com/vitaapp/api/v1';
+  // BASE_URL = 'http://localhost:8080/vitaapp/api/v1';
   httpOptions = {
     headers: new HttpHeaders().set('Content-Type', 'application/json'),
   };
@@ -116,6 +116,11 @@ export class VitaappService {
     return this.makeGetRequest(PATH);
   }
 
+  getSubcategorybyId(idSubcategory: number): Observable<any> {
+    const PATH = this.concatURL(`/subcategory/any/${idSubcategory}`);
+    return this.makeGetRequest(PATH);
+  }
+
   // * -------------------Servicios de Pictogramas-------------------
 
   savePictogram(pictogram: Pictogram): Observable<any> {
@@ -154,6 +159,11 @@ export class VitaappService {
 
   getAllPictogramsHelp(): Observable<any> {
     const PATH = this.concatURL(`/pictogram-help/any/all`);
+    return this.makeGetRequest(PATH);
+  }
+
+  getImagesPictogramsHelp(helperId: number): Observable<any> {
+    const PATH = this.concatURL(`/image/any/pictogram-help/${helperId}`);
     return this.makeGetRequest(PATH);
   }
 }

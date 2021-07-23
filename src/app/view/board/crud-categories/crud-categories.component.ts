@@ -16,10 +16,15 @@ export class CrudCategoriesComponent implements OnInit {
   areTheAreCategories = false;
   @ViewChild('formEditCategory') formEditCategory: FormEditCategoryComponent;
   @ViewChild('collapsePanelCat') collapsePanelCat: CollapsePanelComponent;
+  subMenu = ['Categorias', 'Subcategoria', 'Pictogramas'];
+  subMenuNavigation = ['Categorias'];
+  pageCurrent: string;
 
   constructor(private vitaapp: VitaappService, private router: Router) {}
 
   ngOnInit(): void {
+    this.pageCurrent = this.subMenu[0];
+    this.skeletonCategories = Array(6).fill('');
     this.getAllCategories();
   }
 

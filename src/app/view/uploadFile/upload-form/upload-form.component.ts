@@ -50,6 +50,8 @@ export class UploadFormComponent implements OnInit {
           .pushFileToStorage(this.currentFileUpload)
           .subscribe((resp) => {
             this.percentage = (resp.bytesTransferred * 100) / resp.totalBytes;
+            console.log(resp);
+
             if ((resp.bytesTransferred * 100) / resp.totalBytes > 99) {
               resp.ref.getDownloadURL().then((path: string) => {
                 console.log(path);

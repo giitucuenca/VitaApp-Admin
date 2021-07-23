@@ -1,3 +1,19 @@
+<section>
+  <h1 class="title">{{ pageCurrent }}</h1>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-bg">
+      <li
+        [ngClass]="
+          i === 1 ? 'breadcrumb-item h2 m-0 active' : 'breadcrumb-item h2 m-0'
+        "
+        *ngFor="let item of subMenuNavigation; let i = index"
+        (click)="goToCategories(i)"
+      >
+        {{ item }}
+      </li>
+    </ol>
+  </nav>
+</section>
 <section #pages class="subcategory animate__bounceIn">
   <div class="form__custom">
     <p-fieldset
@@ -5,6 +21,7 @@
       legend="Agregar Subcategoria"
       [toggleable]="true"
       [collapsed]="true"
+      (click)="addCategoryId()"
       ><app-form-subcategory
         #appSubcategory
         (reloadSubcategories)="getAllSubcategories(idCategory)"

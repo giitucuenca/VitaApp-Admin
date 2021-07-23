@@ -1,3 +1,18 @@
+<section>
+  <h1 class="title">{{ pageCurrent }}</h1>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-bg">
+      <li
+        [ngClass]="
+          i === 0 ? 'breadcrumb-item h2 m-0 active' : 'breadcrumb-item h2 m-0'
+        "
+        *ngFor="let item of subMenuNavigation; let i = index"
+      >
+        {{ item }}
+      </li>
+    </ol>
+  </nav>
+</section>
 <section #pages class="categories animate__bounceIn">
   <section class="form__custom">
     <p-fieldset

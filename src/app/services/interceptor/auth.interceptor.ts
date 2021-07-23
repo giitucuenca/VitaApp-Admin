@@ -1,3 +1,4 @@
+import { PageNotFoundComponent } from './../../view/components/page-not-found/page-not-found.component';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -6,6 +7,8 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

@@ -58,6 +58,8 @@ import { ToastModule } from 'primeng/toast';
 import { CrudCategoriesComponent } from './view/board/crud-categories/crud-categories.component';
 import { CrudSubcategoriesComponent } from './view/board/crud-subcategories/crud-subcategories.component';
 import { CrudPictogramsComponent } from './view/board/crud-pictograms/crud-pictograms.component';
+import { PageNotFoundComponent } from './view/components/page-not-found/page-not-found.component';
+import { DragExampleComponent } from './view/layout/drag-example/drag-example.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +86,8 @@ import { CrudPictogramsComponent } from './view/board/crud-pictograms/crud-picto
     CrudCategoriesComponent,
     CrudSubcategoriesComponent,
     CrudPictogramsComponent,
+    PageNotFoundComponent,
+    DragExampleComponent,
   ],
   imports: [
     BrowserModule,

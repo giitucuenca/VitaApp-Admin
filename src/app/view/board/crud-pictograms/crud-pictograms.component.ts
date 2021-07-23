@@ -1,3 +1,4 @@
+import { Subcategory } from 'src/app/controller/interfaces/subcategory.interface';
 import { FormPictogramComponent } from './../../forms/form-pictogram/form-pictogram.component';
 import { FormEditPictogramComponent } from './../../forms/form-edit-pictogram/form-edit-pictogram.component';
 import { Pictogram } from 'src/app/controller/interfaces/pictogram.interface';
@@ -21,6 +22,8 @@ export class CrudPictogramsComponent implements OnInit {
   formEditPictogram: FormEditPictogramComponent;
   @ViewChild('collapsePanelPic') collapsePanelPic: CollapsePanelComponent;
 
+  subMenuNavigation = ['Categorias', 'Subcategoria', 'Pictogramas'];
+  pageCurrent: string;
   constructor(
     private vitaapp: VitaappService,
     private router: Router,
@@ -28,8 +31,10 @@ export class CrudPictogramsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.pageCurrent = this.subMenuNavigation[2];
+    this.skeletonPictograms = Array(20).fill('');
     this.activeRoute.params.subscribe((params) => {
-      this.idSubcategory = params['id'];
+      this.idSubcategory = params.id;
       this.getAllPictograms(this.idSubcategory);
     });
   }
@@ -58,5 +63,23 @@ export class CrudPictogramsComponent implements OnInit {
 
   collapseEditPictogram(): void {
     this.collapsePanelPic.closePanel();
+  }
+
+  goToPage(index: number): void {
+    if (index == 0) {
+      this.router.navigateByUrl('/panel/categorias');
+    } else if (index == 1) {
+      this.vitaapp
+        .getSubcategorybyId(this.idSubcategory)
+        .subscribe((subcategory: Subcategory) => {
+          this.router.navigate([
+            '/panel/subcategorias',
+            subcategory.categoryId,
+          ]);
+        });
+    }
+  }
+  setSubcategoryId(): void {
+    this.appPictogram.setSubcategoryId(this.idSubcategory);
   }
 }

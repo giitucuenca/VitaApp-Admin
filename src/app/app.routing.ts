@@ -1,3 +1,4 @@
+import { PageNotFoundComponent } from './view/components/page-not-found/page-not-found.component';
 import { CrudCategoriesComponent } from './view/board/crud-categories/crud-categories.component';
 import { AuthGuard } from './services/guard/auth.guard';
 import { NgModule } from '@angular/core';
@@ -17,6 +18,10 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'not-found',
+    component: PageNotFoundComponent,
+  },
+  {
     path: 'login',
     component: LoginComponent,
   },
@@ -34,19 +39,19 @@ export const routes: Routes = [
         ],
       },
       {
-        path: '',
+        path: 'panel',
         component: BoardComponent,
         children: [
           {
-            path: 'panel/categorias',
+            path: 'categorias',
             component: CrudCategoriesComponent,
           },
           {
-            path: 'panel/subcategorias/:id',
+            path: 'subcategorias/:id',
             component: CrudSubcategoriesComponent,
           },
           {
-            path: 'panel/pictogramas/:id',
+            path: 'pictogramas/:id',
             component: CrudPictogramsComponent,
           },
         ],
@@ -65,7 +70,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: 'not-found',
     pathMatch: 'full',
   },
 ];

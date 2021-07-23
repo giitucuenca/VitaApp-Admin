@@ -85,8 +85,8 @@ export class LoginComponent implements OnInit {
    */
   validateForm() {
     if (this.formLogin.invalid) {
-      return Object.values(this.formLogin.controls).forEach(
-        (control) => control.markAllAsTouched
+      return Object.values(this.formLogin.controls).forEach((control) =>
+        control.markAllAsTouched()
       );
     }
   }
