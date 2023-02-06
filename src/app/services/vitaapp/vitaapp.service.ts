@@ -11,8 +11,8 @@ import { PictogramHelp } from 'src/app/controller/interfaces/pictogram-help.inte
   providedIn: 'root',
 })
 export class VitaappService {
-  BASE_URL = 'https://vitaappucuenca.herokuapp.com/vitaapp/api/v1';
-  // BASE_URL = 'http://localhost:8080/vitaapp/api/v1';
+  BACKEND_URL = 'https://web-production-1ec4.up.railway.app';
+  BASE_URL = `${this.BACKEND_URL}/vitaapp/api/v1`;
   httpOptions = {
     headers: new HttpHeaders().set('Content-Type', 'application/json'),
   };
