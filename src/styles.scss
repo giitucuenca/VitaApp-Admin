@@ -35,16 +35,16 @@ $vitaapp-ucuenca-admin-theme: mat-light-theme(
 @include angular-material-theme($vitaapp-ucuenca-admin-theme);
 
 /* You can add global styles to this file, and also import other style files */
-@import "assets/Scss/bootstrap/scss/bootstrap.scss";
-@import "assets/Scss/header";
-@import "assets/Scss/footer";
-@import "assets/Scss/couters";
-@import "assets/Scss/category";
-@import "assets/Scss/mixins/gap";
-@import "assets/Scss/pictogram-grid";
-@import "assets/Scss/panel";
-@import "assets/Scss/error";
-@import "assets/Scss/form";
+@import "assets/scss/bootstrap/scss/bootstrap.scss";
+@import "assets/scss/header";
+@import "assets/scss/footer";
+@import "assets/scss/couters";
+@import "assets/scss/category";
+@import "assets/scss/mixins/gap";
+@import "assets/scss/pictogram-grid";
+@import "assets/scss/panel";
+@import "assets/scss/error";
+@import "assets/scss/form";
 
 html,
 body {
