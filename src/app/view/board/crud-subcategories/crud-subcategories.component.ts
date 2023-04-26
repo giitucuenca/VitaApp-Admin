@@ -5,6 +5,7 @@ import { VitaappService } from 'src/app/services/vitaapp/vitaapp.service';
 import { FormEditSubcategoryComponent } from '../../forms/form-edit-subcategory/form-edit-subcategory.component';
 import { CollapsePanelComponent } from '../../components/collapse-panel/collapse-panel.component';
 import { FormSubcategoryComponent } from '../../forms/form-subcategory/form-subcategory.component';
+import { ConfirmationService, Message, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-crud-subcategories',
@@ -25,6 +26,8 @@ export class CrudSubcategoriesComponent implements OnInit {
   pageCurrent: string;
   constructor(
     private vitaapp: VitaappService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
     private router: Router,
     private activeRoute: ActivatedRoute
   ) {}
@@ -55,9 +58,47 @@ export class CrudSubcategoriesComponent implements OnInit {
     this.formEditSubcategory.subcategoryToEdit(subcategory);
   }
 
-  collapsePanelSubAndReload(idSubcategory: number): void {
+  deleteSubcategory(subcategory: Subcategory) {
+    console.log(this.confirmationService);
+    this.confirmationService.confirm({
+      message:
+        'Esta seguro que desea eliminar la subcategoría, recuerde que se efectuara un eliminado lógico.',
+      header: 'Quiere Eliminar la Subcategoría',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.vitaapp.deleteSubcategory(subcategory).subscribe(
+          () => {
+            this.showMessage({
+              severity: 'success',
+              summary: 'Realizado',
+              detail: 'Se eliminó la subcategoría',
+            });
+            this.getAllSubcategories(this.idCategory);
+          },
+          (e) => {
+            this.showMessage({
+              severity: 'error',
+              summary: 'Error',
+              detail: e.message,
+            });
+          }
+        );
+      },
+      reject: () => {
+        const msg = {
+          severity: 'info',
+          summary: 'Cancelado',
+          detail: 'Se canceló el eliminado.',
+        };
+        this.showMessage(msg);
+      },
+      key: 'positionDialog',
+    });
+  }
+
+  collapsePanelSubAndReload(idCategory: number): void {
     this.collapsePanelSub.closePanel();
-    this.getAllSubcategories(idSubcategory);
+    this.getAllSubcategories(idCategory);
   }
 
   collapseEditSubcategory(): void {
@@ -76,5 +117,12 @@ export class CrudSubcategoriesComponent implements OnInit {
 
   addCategoryId(): void {
     this.appSubcategory.setCategoryId(this.idCategory);
+  }
+
+  showMessage(msg: Message) {
+    this.messageService.add({
+      key: 'toastHelper',
+      ...msg,
+    });
   }
 }

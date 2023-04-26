@@ -116,6 +116,13 @@ export class VitaappService {
     return this.makePutRequest(PATH, subcategory);
   }
 
+  deleteSubcategory(subcategory: Subcategory) {
+    const PATH = this.concatURL(
+      `/subcategory/admin/${subcategory.subcategoryId}`
+    );
+    return this.makeDelRequest(PATH);
+  }
+
   getAllSubcategoriesByCategoryId(idCategory: number): Observable<any> {
     const PATH = this.concatURL(`/subcategory/any/category/${idCategory}`);
     return this.makeGetRequest(PATH);
