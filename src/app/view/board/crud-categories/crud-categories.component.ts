@@ -4,6 +4,7 @@ import { Category } from 'src/app/controller/interfaces/category.interface';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { VitaappService } from 'src/app/services/vitaapp/vitaapp.service';
 import { Router } from '@angular/router';
+import { ConfirmationService, Message, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-crud-categories',
@@ -20,7 +21,12 @@ export class CrudCategoriesComponent implements OnInit {
   subMenuNavigation = ['Categorias'];
   pageCurrent: string;
 
-  constructor(private vitaapp: VitaappService, private router: Router) {}
+  constructor(
+    private vitaapp: VitaappService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.pageCurrent = this.subMenu[0];
@@ -48,6 +54,44 @@ export class CrudCategoriesComponent implements OnInit {
     this.formEditCategory.categoryToEdit(category);
   }
 
+  deleteCategory(category: Category) {
+    console.log(this.confirmationService);
+    this.confirmationService.confirm({
+      message:
+        'Esta seguro que desea eliminar la categoría, recuerde que se efectuara un eliminado lógico.',
+      header: 'Quiere Eliminar la Categoría',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.vitaapp.deleteCategory(category).subscribe(
+          () => {
+            this.showMessage({
+              severity: 'success',
+              summary: 'Realizado',
+              detail: 'Se eliminó la categoría',
+            });
+            this.getAllCategories();
+          },
+          (e) => {
+            this.showMessage({
+              severity: 'error',
+              summary: 'Error',
+              detail: e.message,
+            });
+          }
+        );
+      },
+      reject: () => {
+        const msg = {
+          severity: 'info',
+          summary: 'Cancelado',
+          detail: 'Se canceló el eliminado.',
+        };
+        this.showMessage(msg);
+      },
+      key: 'positionDialog',
+    });
+  }
+
   collapsePanelCatAndReload(): void {
     this.collapsePanelCat.closePanel();
     this.getAllCategories();
@@ -59,5 +103,12 @@ export class CrudCategoriesComponent implements OnInit {
 
   openSubcategory(categoryId: number): void {
     this.router.navigate(['/panel/subcategorias', categoryId]);
+  }
+
+  showMessage(msg: Message) {
+    this.messageService.add({
+      key: 'toastHelper',
+      ...msg,
+    });
   }
 }
